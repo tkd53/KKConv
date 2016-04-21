@@ -21,7 +21,7 @@
 use Env;
 use English;
 use File::Basename;
-unshift(@INC, "$TK53HOME/lib/perl");
+unshift(@INC, "$TKD53HOME/lib/perl");
 
 require "Help.pm";
 require "class/IntStr.pm";

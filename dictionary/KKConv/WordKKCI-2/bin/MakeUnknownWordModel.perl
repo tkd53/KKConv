@@ -21,7 +21,7 @@
 
 use Env;
 use File::Basename;
-unshift(@INC, dirname($0), "$TK53HOME/lib/perl");
+unshift(@INC, dirname($0), "$TKD53HOME/lib/perl");
 
 require "Help.pm";
 require "Char.pm";
