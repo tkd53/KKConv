@@ -1,0 +1,191 @@
+//====================================================================================
+//                       UkWord.h
+//                            by Shinsuke MORI
+//                            Last change : 18 May 1996
+//====================================================================================
+
+// 機  能 : 文字 2-gram による未知語モデル
+//
+// 注意点 : アクセスされる長さにかかわらず maxlen 文字のテーブルを確保
+
+
+//------------------------------------------------------------------------------------
+//                       define
+//------------------------------------------------------------------------------------
+
+#ifndef _UkWord_h
+#define _UkWord_h
+
+#ifdef DEBUG
+#define UkWord_DEBUG
+#endif
+//#define UkWord_DEBUG
+
+
+//------------------------------------------------------------------------------------
+//                       include
+//------------------------------------------------------------------------------------
+
+#include <mystd.h>
+#include <W_CHAR.h>
+#include <Markov.h>
+
+
+//------------------------------------------------------------------------------------
+//                       class UkWord
+//------------------------------------------------------------------------------------
+
+class UkWord
+{
+
+  public:
+
+                    UkWord(U_INT4, string);
+
+           void     init();
+
+           void     tran(W_CHAR);
+
+    inline DECIM8   logP(U_INT4) const;
+
+#ifdef COST
+    inline U_INT4   cost(U_INT4) const;
+#endif // COST
+
+  private:
+
+           U_INT4   curpos;                       // 現在の位置(文頭からの文字数)
+
+           U_INT4   maxlen;                       // 長さの最大値
+
+           U_INT4   wc2int[0x10000];              // 文字から状態への写像
+
+           U_INT4   curr;                         // 今の状態
+
+           Markov   markov;                       // 文字マルコフモデル
+
+           DECIM8_P LogP;                         // 各位置での対数確率
+
+           DECIM8   UTlogP;                       // -log(P(Σ|UT))
+
+};
+
+
+//------------------------------------------------------------------------------------
+//                       constructor
+//------------------------------------------------------------------------------------
+
+UkWord::UkWord(U_INT4 maxlen, string path = "../Step0")
+: curpos(0), maxlen(maxlen)
+{
+#ifdef UkWord_DEBUG
+    cerr << "UkWord::UkWord(U_INT4)" << endl;
+#endif
+
+    curr = BT;
+
+    markov.dbbind(path + "/CharMarkov.db");
+    markov.setlambda(path + "/CharLambda");
+
+    LogP = new DECIM8[maxlen];
+
+    for (U_INT4 full = 0; full < 0x10000; full++) wc2int[full] = 0;
+
+    U_INT4 lineno;
+    ifstream file((path + "/CharIntStr.text").c_str());
+    if (! file) openfailed(path + "/CharIntStr.text");
+    S_CHAR buff[4];                               // ファイル読み込みのためのバッファ
+    for (lineno = 0; file.read(buff, 3); lineno++){
+        assert(buff[2] == '\n');                  // 一つの全角文字と改行コードのはず
+        W_CHAR wc(buff);
+        wc2int[wc.full] = lineno;
+    }
+    file.close();
+    UTlogP = log(6878-(lineno-2));                // 6878 = 表示できる全角文字の数
+}
+
+
+//------------------------------------------------------------------------------------
+//                       init
+//------------------------------------------------------------------------------------
+
+inline void UkWord::init()
+{
+#ifdef UkWord_DEBUG
+    cerr << "UkWord::init()" << endl;
+#endif
+
+    curr = BT;
+    curpos = 0;
+}
+
+
+//------------------------------------------------------------------------------------
+//                       tran
+//------------------------------------------------------------------------------------
+
+inline void UkWord::tran(const W_CHAR code)
+{
+#ifdef UkWord_DEBUG
+    cerr << "UkWord::tran(const W_CHAR)" << endl;
+#endif
+
+    U_INT4 next = wc2int[code.full];              // 次の状態
+    for (U_INT4 i = 0; i < curpos; i++){
+        LogP[i] += markov.logP(curr, next);
+        if (next == UT){                          // 未知文字の場合
+            LogP[i] += UTlogP;
+        }
+    }
+    LogP[curpos] = markov.logP(BT, next);
+    if (next == UT){                              // 未知文字の場合
+        LogP[curpos] += UTlogP;
+    }
+    curr = next;
+
+    curpos++;
+}
+
+
+//------------------------------------------------------------------------------------
+//                       logP
+//------------------------------------------------------------------------------------
+
+inline DECIM8 UkWord::logP(U_INT4 length) const
+{
+#ifdef UkWord_DEBUG
+    cerr << "UkWord::logP(U_INT4, U_INT4)" << endl;
+#endif
+
+    return(LogP[curpos-length]+markov.logP(curr, BT));
+}
+
+
+//------------------------------------------------------------------------------------
+//                       cost
+//------------------------------------------------------------------------------------
+
+#ifdef COST
+
+inline U_INT4 UkWord::cost(U_INT4 length) const
+{
+#ifdef UkWord_DEBUG
+    cerr << "UkWord::cost(U_INT4, U_INT4)" << endl;
+#endif
+
+    return(U_INT4(mult*logP(length)));
+}
+
+#endif // COST
+
+
+//------------------------------------------------------------------------------------
+//                       endif
+//------------------------------------------------------------------------------------
+
+#endif
+
+
+//====================================================================================
+//                       END
+//====================================================================================
