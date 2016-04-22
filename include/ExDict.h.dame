@@ -190,8 +190,8 @@ inline void ExDict::tran(const W_CHAR code)
     cerr << "ExDict::tran(code = " << code << ")" << endl;
 #endif
 
-    curpos = (*curpos)[code.half.hi^0xff];
-    curpos = (*curpos)[code.half.lo^0xff];
+    curpos = (*curpos)[(code.full >> 4)^0xff];
+    curpos = (*curpos)[(code.full & 0xff)^0xff];
 }
 
 
