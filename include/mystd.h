@@ -29,6 +29,8 @@
 
 #include <cstdlib>  // for 64bit
 
+#include <stdint.h>
+
 
 //------------------------------------------------------------------------------------
 //                       namespace
@@ -63,71 +65,71 @@ typedef const unsigned char*   C_U_CHAR_P;        // and pointer of it
 typedef const unsigned char**  C_U_CHAR_P_P;      // and pointer of it
 typedef const unsigned char*** C_U_CHAR_P_P_P;    // and pointer of it
 
-typedef char             S_INT1;                  // signed 1 byte integer
-typedef char*            S_INT1_P;                // and pointer of it
-typedef char**           S_INT1_P_P;              // and pointer of it
-typedef char***          S_INT1_P_P_P;            // and pointer of it
-typedef const char             C_S_INT1;          // signed 1 byte integer
-typedef const char*            C_S_INT1_P;        // and pointer of it
-typedef const char**           C_S_INT1_P_P;      // and pointer of it
-typedef const char***          C_S_INT1_P_P_P;    // and pointer of it
+typedef int8_t             S_INT1;                  // signed 1 byte integer
+typedef int8_t*            S_INT1_P;                // and pointer of it
+typedef int8_t**           S_INT1_P_P;              // and pointer of it
+typedef int8_t***          S_INT1_P_P_P;            // and pointer of it
+typedef const int8_t             C_S_INT1;          // signed 1 byte integer
+typedef const int8_t*            C_S_INT1_P;        // and pointer of it
+typedef const int8_t**           C_S_INT1_P_P;      // and pointer of it
+typedef const int8_t***          C_S_INT1_P_P_P;    // and pointer of it
 
-#define S_INT1_MAX       +0x7f			  // maximum value of it
-#define S_INT1_MIN       -0x7f			  // minimum value of it
+#define S_INT1_MAX       INT8_MAX		  // maximum value of it
+#define S_INT1_MIN       INT8_MIN			  // minimum value of it
 
-typedef unsigned char    U_INT1;                  // unsigned 1 byte integer
-typedef unsigned char*   U_INT1_P;                // and pointer of it
-typedef unsigned char**  U_INT1_P_P;              // and pointer of it
-typedef unsigned char*** U_INT1_P_P_P;            // and pointer of it
-typedef const unsigned char    C_U_INT1;          // unsigned 1 byte integer
-typedef const unsigned char*   C_U_INT1_P;        // and pointer of it
-typedef const unsigned char**  C_U_INT1_P_P;      // and pointer of it
-typedef const unsigned char*** C_U_INT1_P_P_P;    // and pointer of it
-#define U_INT1_MAX       0xff			  // maximum value of it
+typedef uint8_t    U_INT1;                  // unsigned 1 byte integer
+typedef uint8_t*   U_INT1_P;                // and pointer of it
+typedef uint8_t**  U_INT1_P_P;              // and pointer of it
+typedef uint8_t*** U_INT1_P_P_P;            // and pointer of it
+typedef const uint8_t    C_U_INT1;          // unsigned 1 byte integer
+typedef const uint8_t*   C_U_INT1_P;        // and pointer of it
+typedef const uint8_t**  C_U_INT1_P_P;      // and pointer of it
+typedef const uint8_t*** C_U_INT1_P_P_P;    // and pointer of it
+#define U_INT1_MAX       UINT8_MAX			  // maximum value of it
 #define U_INT1_MIN       0x00			  // minimum value of it
 
-typedef short            S_INT2;                  // signed 2 bytes integer
-typedef short*           S_INT2_P;                // and pointer of it
-typedef short**          S_INT2_P_P;              // and pointer of it
-typedef short***         S_INT2_P_P_P;            // and pointer of it
-typedef const short            C_S_INT2;          // signed 2 bytes integer
-typedef const short*           C_S_INT2_P;        // and pointer of it
-typedef const short**          C_S_INT2_P_P;      // and pointer of it
-typedef const short***         C_S_INT2_P_P_P;    // and pointer of it
-#define S_INT2_MAX       +0x7fff		  // maximum value of it
-#define S_INT2_MIN       -0x7fff		  // minimum value of it
+typedef int16_t            S_INT2;                  // signed 2 bytes integer
+typedef int16_t*           S_INT2_P;                // and pointer of it
+typedef int16_t**          S_INT2_P_P;              // and pointer of it
+typedef int16_t***         S_INT2_P_P_P;            // and pointer of it
+typedef const int16_t            C_S_INT2;          // signed 2 bytes integer
+typedef const int16_t*           C_S_INT2_P;        // and pointer of it
+typedef const int16_t**          C_S_INT2_P_P;      // and pointer of it
+typedef const int16_t***         C_S_INT2_P_P_P;    // and pointer of it
+#define S_INT2_MAX       INT16_MAX		  // maximum value of it
+#define S_INT2_MIN       INT16_MIN		  // minimum value of it
 
-typedef unsigned short   U_INT2;                  // unsigned 2 bytes integer
-typedef unsigned short*  U_INT2_P;                // and pointer of it
-typedef unsigned short** U_INT2_P_P;              // and pointer of it
-typedef unsigned short***U_INT2_P_P_P;            // and pointer of it
-typedef const unsigned short   C_U_INT2;          // unsigned 2 bytes integer
-typedef const unsigned short*  C_U_INT2_P;        // and pointer of it
-typedef const unsigned short** C_U_INT2_P_P;      // and pointer of it
-typedef const unsigned short***C_U_INT2_P_P_P;    // and pointer of it
-#define U_INT2_MAX       0xffff	        	  // maximum value of it
+typedef uint16_t   U_INT2;                  // unsigned 2 bytes integer
+typedef uint16_t*  U_INT2_P;                // and pointer of it
+typedef uint16_t** U_INT2_P_P;              // and pointer of it
+typedef uint16_t***U_INT2_P_P_P;            // and pointer of it
+typedef const uint16_t   C_U_INT2;          // unsigned 2 bytes integer
+typedef const uint16_t*  C_U_INT2_P;        // and pointer of it
+typedef const uint16_t** C_U_INT2_P_P;      // and pointer of it
+typedef const uint16_t***C_U_INT2_P_P_P;    // and pointer of it
+#define U_INT2_MAX       UINT16_MAX	        	  // maximum value of it
 #define U_INT2_MIN       0x0000 		  // minimum value of it
 
-typedef int              S_INT4;                  // signed 4 bytes integer
-typedef int*             S_INT4_P;                // and pointer of it
-typedef int**            S_INT4_P_P;              // and pointer of it
-typedef int***           S_INT4_P_P_P;            // and pointer of it
-typedef const int              C_S_INT4;          // signed 4 bytes integer
-typedef const int*             C_S_INT4_P;        // and pointer of it
-typedef const int**            C_S_INT4_P_P;      // and pointer of it
-typedef const int***           C_S_INT4_P_P_P;    // and pointer of it
-#define S_INT4_MAX       +0x7fffffff		  // maximum value of it
-#define S_INT4_MIN       -0x7fffffff		  // minimum value of it
+typedef int32_t              S_INT4;                  // signed 4 bytes integer
+typedef int32_t*             S_INT4_P;                // and pointer of it
+typedef int32_t**            S_INT4_P_P;              // and pointer of it
+typedef int32_t***           S_INT4_P_P_P;            // and pointer of it
+typedef const int32_t              C_S_INT4;          // signed 4 bytes integer
+typedef const int32_t*             C_S_INT4_P;        // and pointer of it
+typedef const int32_t**            C_S_INT4_P_P;      // and pointer of it
+typedef const int32_t***           C_S_INT4_P_P_P;    // and pointer of it
+#define S_INT4_MAX       INT32_MAX		  // maximum value of it
+#define S_INT4_MIN       INT32_MIN		  // minimum value of it
 
-typedef unsigned int     U_INT4;                  // unsigned 4 bytes integer
-typedef unsigned int*    U_INT4_P;                // and pointer of it
-typedef unsigned int**   U_INT4_P_P;              // and pointer of it
-typedef unsigned int***  U_INT4_P_P_P;            // and pointer of it
-typedef const unsigned int     C_U_INT4;          // unsigned 4 bytes integer
-typedef const unsigned int*    C_U_INT4_P;        // and pointer of it
-typedef const unsigned int**   C_U_INT4_P_P;      // and pointer of it
-typedef const unsigned int***  C_U_INT4_P_P_P;    // and pointer of it
-#define U_INT4_MAX       0xffffffff		  // maximum value of it
+typedef uint32_t     U_INT4;                  // unsigned 4 bytes integer
+typedef uint32_t*    U_INT4_P;                // and pointer of it
+typedef uint32_t**   U_INT4_P_P;              // and pointer of it
+typedef uint32_t***  U_INT4_P_P_P;            // and pointer of it
+typedef const uint32_t     C_U_INT4;          // unsigned 4 bytes integer
+typedef const uint32_t*    C_U_INT4_P;        // and pointer of it
+typedef const uint32_t**   C_U_INT4_P_P;      // and pointer of it
+typedef const uint32_t***  C_U_INT4_P_P_P;    // and pointer of it
+#define U_INT4_MAX       UINT32_MAX		  // maximum value of it
 #define U_INT4_MIN       0x00000000		  // minimum value of it
 
 typedef float            DECIM4;                  // signed 4 bytes decimal
