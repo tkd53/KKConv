@@ -1,4 +1,5 @@
 *~
 src/main
+src/main.dSYM
 /corpus
-.*
+.perl-version
