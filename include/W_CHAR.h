@@ -117,7 +117,10 @@ inline ostream& operator << (ostream& s, const W_CHAR& w)
 
 inline istream& operator<<(istream& s, W_CHAR& w)
 {
-    s >> w.hi() >> w.lo();
+  S_CHAR hi, low;
+
+  s >> hi >> low;
+  w.full = (hi << 8) | low;
 
     return(s);
 }

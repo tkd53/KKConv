@@ -16,7 +16,7 @@
 //------------------------------------------------------------------------------------
 //                       define
 //------------------------------------------------------------------------------------
-#define DEBUG
+//#define DEBUG
 #define EXDICT                                    // 外部辞書も使用
 
 #ifdef DEBUG
@@ -86,7 +86,7 @@ int main(int argc, S_CHAR_P argv[])
 #ifdef MAIN_DEBUG
         cerr << senten << endl;                   // 入力の表示
 #endif // MAIN_DEBUG
-        for (U_INT4 curpos = 0; senten[curpos].half.hi; curpos++){
+        for (U_INT4 curpos = 0; senten[curpos].hi(); curpos++){
             ukyomi.tran(senten[curpos]);
             indict.tran(senten[curpos]);
 #ifdef MAIN_DEBUG

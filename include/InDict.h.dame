@@ -199,8 +199,8 @@ inline void InDict::tran(const W_CHAR code)
     cerr << "InDict::tran(code = " << code << ")" << endl;
 #endif
 
-    curpos = (*curpos)[code.half.hi^0xff];
-    curpos = (*curpos)[code.half.lo^0xff];
+    curpos = (*curpos)[code.hi()^0xff];
+    curpos = (*curpos)[code.lo()^0xff];
 }
 
 
