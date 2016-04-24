@@ -24,10 +24,7 @@ class W_CHAR{
 
   public:
 
-    union{
         U_INT2                         full;
-        struct{U_CHAR hi; U_CHAR lo; } half;
-    };
 
 // constructors
 
@@ -50,6 +47,13 @@ class W_CHAR{
     inline        W_CHAR   operator = (const U_INT2&);
 
 // others
+    inline S_CHAR hi() const {
+      return full >> 8;
+    }
+
+    inline S_CHAR lo() const {
+      return full & 0xff;
+    }
 
 //                  void error(const S_CHAR_P, const S_CHAR_P) const;
 
@@ -77,14 +81,12 @@ inline W_CHAR::W_CHAR()
 
 inline W_CHAR::W_CHAR(const S_CHAR_P s)
 {
-    half.hi = (U_CHAR)s[0];
-    half.lo = (U_CHAR)s[1];
+    full = ((U_CHAR)s[0] << 8) | (U_CHAR)s[1];
 }
 
 inline W_CHAR::W_CHAR(const string s)
 {
-    half.hi = (U_CHAR)s[0];
-    half.lo = (U_CHAR)s[1];
+    full = ((U_CHAR)s[0] << 8) | (U_CHAR)s[1];
 }
 
 inline W_CHAR::W_CHAR(const U_INT2 w)
@@ -94,8 +96,7 @@ inline W_CHAR::W_CHAR(const U_INT2 w)
 
 inline W_CHAR::W_CHAR(const S_CHAR hi, const S_CHAR lo)
 {
-    half.hi = hi;
-    half.lo = lo;
+    full = (hi << 8) | lo;
 }
 
 
@@ -105,7 +106,7 @@ inline W_CHAR::W_CHAR(const S_CHAR hi, const S_CHAR lo)
 
 inline ostream& operator << (ostream& s, const W_CHAR& w)
 {
-    s << w.half.hi << w.half.lo;
+    s << w.hi() << w.lo();
     return(s);
 }
 
@@ -116,7 +117,7 @@ inline ostream& operator << (ostream& s, const W_CHAR& w)
 
 inline istream& operator<<(istream& s, W_CHAR& w)
 {
-    s >> w.half.hi >> w.half.lo;
+    s >> w.hi() >> w.lo();
 
     return(s);
 }
@@ -175,10 +176,10 @@ inline BOOL operator == (W_CHAR& wc1, W_CHAR& wc2)
 
 inline BOOL operator <= (const W_CHAR& wc1, const W_CHAR& wc2)
 {
-    if (wc1.half.hi < wc2.half.hi){
+    if (wc1.hi() < wc2.hi()){
         return(TRUE);
     }
-    if ((wc1.half.hi == wc2.half.hi) && (wc1.half.lo <= wc2.half.lo)){
+    if ((wc1.hi() == wc2.hi()) && (wc1.lo() <= wc2.lo())){
         return(TRUE);
     }
     return(FALSE);
@@ -186,10 +187,10 @@ inline BOOL operator <= (const W_CHAR& wc1, const W_CHAR& wc2)
 
 inline BOOL operator >= (const W_CHAR& wc1, const W_CHAR& wc2)
 {
-    if (wc1.half.hi > wc2.half.hi){
+    if (wc1.hi() > wc2.hi()){
         return(TRUE);
     }
-    if ((wc1.half.hi == wc2.half.hi) && (wc1.half.lo >= wc2.half.lo)){
+    if ((wc1.hi() == wc2.hi()) && (wc1.lo() >= wc2.lo())){
         return(TRUE);
     }
     return(FALSE);
@@ -198,10 +199,10 @@ inline BOOL operator >= (const W_CHAR& wc1, const W_CHAR& wc2)
 
 inline BOOL operator < (const W_CHAR& wc1, const W_CHAR& wc2)
 {
-    if (wc1.half.hi < wc2.half.hi){
+    if (wc1.hi() < wc2.hi()){
         return(TRUE);
     }
-    if ((wc1.half.hi == wc2.half.hi) && (wc1.half.lo < wc2.half.lo)){
+    if ((wc1.hi() == wc2.hi()) && (wc1.lo() < wc2.lo())){
         return(TRUE);
     }
     return(FALSE);
@@ -209,10 +210,10 @@ inline BOOL operator < (const W_CHAR& wc1, const W_CHAR& wc2)
 
 inline BOOL operator > (const W_CHAR& wc1, const W_CHAR& wc2)
 {
-    if (wc1.half.hi > wc2.half.hi){
+    if (wc1.hi() > wc2.hi()){
         return(TRUE);
     }
-    if ((wc1.half.hi == wc2.half.hi) && (wc1.half.lo > wc2.half.lo)){
+    if ((wc1.hi() == wc2.hi()) && (wc1.lo() > wc2.lo())){
         return(TRUE);
     }
     return(FALSE);
@@ -305,7 +306,7 @@ inline W_String::W_String(const string& temp)
 const U_INT4 W_String::length()
 {
     U_INT4 length = 0;
-    while (wstr[length].half.hi) length++;
+    while (wstr[length].hi()) length++;
     return(length);
 }
 
@@ -346,7 +347,7 @@ inline W_CHAR& W_String::operator[](const U_INT4 suffix)
 
 inline ostream& operator<<(ostream& s, const W_String& w)
 {
-    for (W_CHAR_P wptr = w.wstr; (*wptr).half.hi; wptr++){
+    for (W_CHAR_P wptr = w.wstr; (*wptr).hi(); wptr++){
         s << (*wptr);
     }
     return(s);
