@@ -1,4 +1,5 @@
-#!/usr/bin/perl
+#!/usr/bin/env perl
+use bytes;
 #=====================================================================================
 #                        split.perl<2>
 #                             by Shinsuke MORI

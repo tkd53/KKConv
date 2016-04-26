@@ -1,4 +1,5 @@
 #!/usr/bin/env perl
+use bytes;
 #=====================================================================================
 #                       CrossEntropySSCNLP.perl
 #                             bShinsuke Mori
@@ -330,7 +331,7 @@ for ($logP = 0, $Tnum = 0, $Wnum = 0; <CORPUS>; ){
         }
 #        printf(STDERR "%s/%s %7.4f ", $Wfol, $dict, $logP/log(2));
         ($Scur, $CRScur) = ($Sfol, $CRSfol);
-    } 
+    }
 #    printf(STDERR "\n");
 }
 close(CORPUS);
@@ -398,18 +399,18 @@ sub RCWordIntStr{
 # ��  ǽ : ñ�� 2-gram ����ɽ�κ���
 #
 # ������ : ʸñ�̤ǽ���������
-# 
+#
 #                 ��  ��  ��  ��  ��  5
 # $sent =         BT  ��  ��  ��  BT
 #                    b1  e1          e2
-# 
+#
 #             ��������������������������
 # $prob[] =   ��P0��P1��P2��P3��P4��P5��
 #             ��������������������������
 #
 #               j
 # $pi[$i][$j] = �� Qk      where Qk = (1-Pk)
-#               k=i     
+#               k=i
 #
 #           j = 0   1   2   3   4   5
 #             ��������������������������
@@ -471,7 +472,7 @@ sub RCWordMarkov{
                 $string = substr($sent, 2*$beg1, 2*($end2-$beg1));
 #                printf(STDERR "%s %s %s\n", "-" x 5, $string, "-" x 20);
                 for ($end1 = $beg1+1; $end1 < $end2; $end1++){
-                    # Ex. (beg1, end1) = (1, 2), (beg2, end2) = (2, 5), 
+                    # Ex. (beg1, end1) = (1, 2), (beg2, end2) = (2, 5),
                     $beg2 = $end1;
                     my($freq) = $prob[$beg1]*$pi[$beg1][$end1-1]*$prob[$end1]
                                             *$pi[$beg2][$end2-1]*$prob[$end2];
@@ -524,7 +525,7 @@ sub WordMarkov{
         while (<CORPUS>){                         # ʸñ�̤Υ롼��
             ($.%$STEP == 0) || next;
             @state = map($WordIntStr->int($_), ($BT, &Morphs2Words($_), $BT));
-            grep(! $markov->inc(@state[$_-1, $_]), (1..$#state)); 
+            grep(! $markov->inc(@state[$_-1, $_]), (1..$#state));
         }
         close(CORPUS);
     }
@@ -669,7 +670,7 @@ sub UWprob{
         $logP += log($CharUT) if ($char[1] == $CharIntStr->int($UT));
         shift(@char);
     }
-    
+
     return(exp(-$logP));
 }
 

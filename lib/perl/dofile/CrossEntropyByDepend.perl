@@ -1,3 +1,4 @@
+use bytes;
 #=====================================================================================
 #                        CrossEntropyByDepend.perl
 #                             by Shinsuke Mori
@@ -25,7 +26,7 @@ sub UMlogP{
         $logP += log($CharUT[$part]) if ($char[1] == $CharIntStr[$part]->int($UT));
         shift(@char);
     }
-    
+
     return($logP);
 }
 
@@ -197,7 +198,7 @@ sub CharMarkov{
             foreach $morp (map((new Morpheme(split))->morp, split("\n"))){
                 ($MorpIntStr->int($morp) == $MorpIntStr->int($Part[$part])) || next;
                 @state = map($intstr->int($_), ($BT, &Morphs2Chars($morp), $BT));
-                grep(! $markov->inc(@state[$_-1, $_]), (1..$#state)); 
+                grep(! $markov->inc(@state[$_-1, $_]), (1..$#state));
             }
         }
         CORPUS->input_record_separator($IRS);

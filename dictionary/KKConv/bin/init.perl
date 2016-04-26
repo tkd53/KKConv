@@ -1,4 +1,5 @@
-#!/usr/bin/perl
+#!/usr/bin/env perl
+use bytes;
 #=====================================================================================
 #                       init.perl
 #                             bShinsuke Mori

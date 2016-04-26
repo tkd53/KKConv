@@ -1,4 +1,5 @@
 #!/usr/bin/env perl
+use bytes;
 #=====================================================================================
 #                        CrossEntropyWithBase.perl
 #                             by Shinsuke Mori
@@ -55,7 +56,7 @@ do "dofile/CrossEntropyByWord.perl";
 #-------------------------------------------------------------------------------------
 #                        ��ͭ���ѿ�������
 #-------------------------------------------------------------------------------------
- 
+
 $MO = 1;                                          # �ޥ륳�ե��ǥ��μ���
 
 @WordMarkovTest = (&Morphs2Words($MorpMarkovTest))[0 .. $MO];
@@ -181,7 +182,7 @@ sub CalcLambda{
         while (<FILE>){
             ($.%$STEP == 0) || next;
             @word = (($BT) x $MO, &Morphs2Words($_), $BT);
-            grep(! ${$Tran[$n]}{join(" ", @word[$_-$MO .. $_])}++, ($MO .. $#word)); 
+            grep(! ${$Tran[$n]}{join(" ", @word[$_-$MO .. $_])}++, ($MO .. $#word));
         }
         close(FILE);
 #        while (($key, $val) = each(%{$Tran[$n]})){
@@ -219,7 +220,7 @@ sub CalcLambda{
 # ��  ǽ : ���ַ��������ΰ����η����֤���
 #
 # ������ : List = [word+, Coef]
-#          �������Х��ѿ�: $WordIntStr, @LforWord, $CharIntStr, 
+#          �������Х��ѿ�: $WordIntStr, @LforWord, $CharIntStr,
 #                          $BaseWordIntStr, @BaseLforWord, $BaseWordMarkov
 
 sub OneIteration{

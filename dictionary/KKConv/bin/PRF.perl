@@ -1,4 +1,5 @@
-#!/usr/bin/perl
+#!/usr/bin/env perl
+use bytes;
 #=====================================================================================
 #                       PRF.perl
 #                             bShinsuke Mori
@@ -49,7 +50,7 @@ require "Parallel.pm";
 
 foreach $FILE (@FILE){
     open(FILE) || die "Can't open $FILE: $!\n";
-    @line = (<FILE>)[-4, -3, -2, -1]; 
+    @line = (<FILE>)[-4, -3, -2, -1];
     close(FILE);
     $P = (split(" ", $line[0]))[4];
     $R = (split(" ", $line[1]))[4];
@@ -57,7 +58,7 @@ foreach $FILE (@FILE){
 #    printf("%s %s\n", $FILE, $P);
 #    printf("%s %s\n", $FILE, $R);
     printf("%s %s\n", $FILE, $F);
-}    
+}
 
 
 

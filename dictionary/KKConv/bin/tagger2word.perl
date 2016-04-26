@@ -1,4 +1,5 @@
-#!/usr/bin/perl
+#!/usr/bin/env perl
+use bytes;
 #=====================================================================================
 #                       tagger2word.perl
 #                             bShinsuke Mori

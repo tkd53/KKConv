@@ -1,3 +1,4 @@
+use bytes;
 #=====================================================================================
 #                       CrossEntropyByWordKKCI.perl
 #                             bShinsuke Mori

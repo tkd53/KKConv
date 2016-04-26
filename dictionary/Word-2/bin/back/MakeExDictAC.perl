@@ -1,4 +1,5 @@
 #!/usr/bin/env perl
+use bytes;
 #=====================================================================================
 #                        MakeExDictAC.perl
 #                             by Shinsuke MORI
@@ -7,7 +8,7 @@
 
 # ��  ǽ : MorpIntStr.text �� MorpMarkov.db ����̤�θ����ǥ��ˤ������θ���������Ψ�ι�
 #          ���ͤ��׻��������������θ��Ф�������ʬ���롣�ʲ��Υե��������������롣
-#          
+#
 #            1) ExDict.actran : �����ȥޥȥ�������ɽ
 #                 ((OutPut��Fail��Number)��(W_CHAR)^Number��(Offset)^Number)+
 #            2) ExDict.acdata : Ĺ�����ʻ��ֹ������п���Ψ�ͤ��Ȥ���
@@ -150,7 +151,7 @@ foreach $word (keys(%MotPos)){                    # ���Ƥΰۤʤ�ɽ��
 warn "\$ACTran ���ΰ����ݤ� \$OutPut ������\n";
 
 # $ACTran{$contex} �ϥΡ��� $contex �� $ACTran �ˤ��������֤˾��񤭤�����
- 
+
 $SENTINEL = pack("IId", 0, 0, 0.0);               # ����ɽ����ʼ
 $OutPut = $SENTINEL;                              # (Length��Part��logP)+
 ($contex, $data) = ("", $ACTran{""});

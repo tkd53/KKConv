@@ -1,4 +1,5 @@
 #!/usr/bin/env perl
+use bytes;
 #=====================================================================================
 #                       MakeExDictDA.perl
 #                             bShinsuke Mori

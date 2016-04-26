@@ -1,4 +1,5 @@
 #!/usr/bin/env perl
+use bytes;
 #=====================================================================================
 #                       CrossEntropyWithStochSegText.perl
 #                             bShinsuke Mori
@@ -203,8 +204,8 @@ sub CalcLambda{
         while (<FILE>){
             @word = (($BT) x $MO, split, $BT);
 #            @word = (($BT) x $MO, &Morphs2Words($_), $BT);
-            grep(! ${$Tran[$n]}{join(" ", @word[$_-$MO .. $_])}++, ($MO .. $#word)); 
-        } 
+            grep(! ${$Tran[$n]}{join(" ", @word[$_-$MO .. $_])}++, ($MO .. $#word));
+        }
         close(FILE);
 #        while (($key, $val) = each(%{$Tran[$n]})){
 #            printf("f(%s) = %d\n", $key, $val);
@@ -214,7 +215,7 @@ sub CalcLambda{
     my($TEMPLATE) = "%6.4f";                      # ���ַ��������ӷ���
     my(@Lnew) = ((1/4) x 4, (1/3) x 3);           # EM���르�ꥺ���ν�����
     my(@Lnew) = (0.0037, 0.0313, 0.0466, 0.9183,  0.0370, 0.4474, 0.5156);
-                                                  # temp for NLP 
+                                                  # temp for NLP
     my(@LforSSText);
     do {                                          # EM���르�ꥺ���Υ롼��
         @LforSSText = @Lnew;                  # �����ȥ��å���
@@ -331,7 +332,7 @@ sub OneIteration{
 sub SSTextProb{
     (@_ > 2) || die;
     my($test, $sstext, @word) = @_;
-    
+
     my($F1) = $text->Freq(@word)-$sstext->Freq(@word);
     pop(@word);
     my($F2) = $text->Freq(@word)-$sstext->Freq(@word);

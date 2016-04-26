@@ -1,4 +1,5 @@
 #!/usr/bin/env perl
+use bytes;
 #=====================================================================================
 #                       WordYomiProb.perl
 #                             bShinsuke Mori

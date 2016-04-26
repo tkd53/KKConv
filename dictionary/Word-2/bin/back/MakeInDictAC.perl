@@ -1,4 +1,5 @@
 #!/usr/bin/env perl
+use bytes;
 #=====================================================================================
 #                        MakeInDictAC.perl
 #                             by Shinsuke MORI
@@ -6,7 +7,7 @@
 #=====================================================================================
 
 # ��  ǽ : MorpIntStr.text �� MorpMarkov.db �����ʲ��Υե��������������롣
-#          
+#
 #            1) InDict.actran : �����ȥޥȥ�������ɽ
 #                 ((OutPut��Fail��Number)��(W_CHAR)^Number��(Offset)^Number)+
 #            2) InDict.acdata : Ĺ�����ʻ��ֹ������٤��Ȥ���
@@ -107,7 +108,7 @@ foreach $word (keys(%MotPos)){                    # ���Ƥΰۤʤ�ɽ��
 warn "\$ACTran ���ΰ����ݤ� \$OutPut ������\n";
 
 # $ACTran{$contex} �ϥΡ��� $contex �� $ACTran �ˤ��������֤˾��񤭤�����
- 
+
 $SENTINEL = pack("III", 0, 0, 0);                 # ����ɽ����ʼ
 $OutPut = $SENTINEL;                              # (Length��Part��Freq)+
 ($contex, $data) = ("", $ACTran{""});

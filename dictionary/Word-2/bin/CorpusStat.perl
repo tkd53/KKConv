@@ -1,4 +1,5 @@
 #!/usr/bin/env perl
+use bytes;
 #=====================================================================================
 #                       CorpusStat.perl
 #                             bShinsuke Mori

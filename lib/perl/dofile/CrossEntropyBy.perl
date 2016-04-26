@@ -1,3 +1,4 @@
+use bytes;
 #=====================================================================================
 #                       CrossEntropyBy.perl
 #                             bShinsuke Mori
@@ -97,7 +98,7 @@ sub eq{
 #
 # 実  例 : @LforWord = &ReadLambda("WordLambda");
 #
-# 注意点 : 
+# 注意点 :
 
 sub ReadLambda{
     (@_ == 1) || die;
@@ -125,7 +126,7 @@ sub ReadLambda{
 #
 # 実  例 : ($WordIntStr, $WordMarkov, @LforWord) = &Read2gramModel("Word");
 #
-# 注意点 : 
+# 注意点 :
 
 sub Read2gramModel{
     (@_ == 1) || die;

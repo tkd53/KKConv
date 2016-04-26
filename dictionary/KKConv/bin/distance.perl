@@ -1,4 +1,5 @@
-#!/usr/bin/perl
+#!/usr/bin/env perl
+use bytes;
 #=====================================================================================
 #                        distance.perl<2>
 #                             by Shinsuke MORI
@@ -9,7 +10,7 @@
 #
 # 使用法 : distance.perl (修正前) (修正後) (begin line) (end line)
 #
-# 実  例 : distance.perl EHJ10000.tagger EHJ0001.cps 
+# 実  例 : distance.perl EHJ10000.tagger EHJ0001.cps
 #
 # 注意点 : 一文が一行に対応していること。
 

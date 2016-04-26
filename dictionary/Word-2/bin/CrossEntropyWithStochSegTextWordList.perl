@@ -1,4 +1,5 @@
 #!/usr/bin/env perl
+use bytes;
 #=====================================================================================
 #                       CrossEntropyWithStochSegTextWordList.perl
 #                             bShinsuke Mori
@@ -322,7 +323,7 @@ for ($logP = 0, $Tnum = 0, $Wnum = 0; <CORPUS>; ){
         }
 #        printf(STDERR "%s/%s %7.4f ", $Wfol, $dict, $logP/log(2));
         ($Scur, $CRScur) = ($Sfol, $CRSfol);
-    } 
+    }
 #    printf(STDERR "\n");
 }
 close(CORPUS);
@@ -396,7 +397,7 @@ sub RCWordIntStr{
 #         ������������������������
 #    @sum1��  �������������������� $sumT
 #         ������������������������
-#         
+#
 
 sub RCWordMarkov{
     (@_ == 3) || die;
@@ -469,7 +470,7 @@ sub RCWordMarkov{
 
     $freq = $markov->_0gram()-$sumT;              # F(UT,UT) = F() - ��_w1,w2 F(w1,w2)
     if ($freq != 0){
-        $markov->rep($freq, 0, 0);  
+        $markov->rep($freq, 0, 0);
         $sumT += $freq;
         $nonz++;
     }
@@ -523,7 +524,7 @@ sub RCWordMarkov{
     }
 
     printf(STDERR "Done\n");
-    
+
     return;
 }
 
@@ -553,7 +554,7 @@ sub WordMarkov{
         while (<CORPUS>){                         # ʸñ�̤Υ롼��
             ($.%$STEP == 0) || next;
             @state = map($WordIntStr->int($_), ($BT, &Morphs2Words($_), $BT));
-            grep(! $markov->inc(@state[$_-1, $_]), (1..$#state)); 
+            grep(! $markov->inc(@state[$_-1, $_]), (1..$#state));
         }
         close(CORPUS);
     }
@@ -698,7 +699,7 @@ sub UWprob{
         $logP += log($CharUT) if ($char[1] == $CharIntStr->int($UT));
         shift(@char);
     }
-    
+
     return(exp(-$logP));
 }
 

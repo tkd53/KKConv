@@ -1,4 +1,5 @@
 #!/usr/bin/env perl
+use bytes;
 #=====================================================================================
 #                        SArrayWordCand.perl
 #                             by Shinsuke Mori
@@ -289,7 +290,7 @@ sub calc{
         ($mora >= 3) || next;                     # ���⡼���ʾ�
         printf("%8.4f %s %s\n", (-log($prob)+$logP)/$mora, $word, join(" ", @elem));
     } while (&inc(\@suff, \@SUFF));
-    
+
     return;
 }
 
@@ -377,7 +378,7 @@ sub Mora{
     }
 
 #    printf("%s -> %d\n", $yomi, $mora);
-    
+
     return($mora);
 }
 

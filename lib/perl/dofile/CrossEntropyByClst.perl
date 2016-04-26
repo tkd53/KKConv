@@ -1,3 +1,4 @@
+use bytes;
 #=====================================================================================
 #                       CrossEntropyByClst.perl
 #                             bShinsuke Mori
@@ -24,7 +25,7 @@ sub ClstMarkov{
 #            print STDERR join(" ", map($ClstIntStr->str($_), @stat)), "\n";
 #            exit(0);
 #            @stat = map($ClstIntStr->int($_), (($BT) x $MO, split, $BT));
-            grep(! $markov->inc(@stat[$_-$MO .. $_]), ($MO .. $#stat)); 
+            grep(! $markov->inc(@stat[$_-$MO .. $_]), ($MO .. $#stat));
         }
         close(CORPUS);
     }
@@ -69,7 +70,7 @@ sub CalcClstLambda{
             ($.%$STEP == 0) || next;
             my(@stat) = map($ClstIntStr->int($_), (($BT) x $MO, &Line2Units($_), $BT));
 #            my(@stat) = map($ClstIntStr->int($_), (($BT) x $MO, split, $BT));
-            grep(! $Tran{pack($PT, @stat[$_-$MO .. $_])}++, ($MO .. $#stat)); 
+            grep(! $Tran{pack($PT, @stat[$_-$MO .. $_])}++, ($MO .. $#stat));
         }
         close(FILE);
 
@@ -93,7 +94,7 @@ sub CalcClstLambda{
         @Lnew = map($Lnew[$_]/scalar(@Kcross), (0 .. $#LforClst));
         printf(STDERR "λ = (%s)\n", join(" ", map(sprintf($TEMPLATE, $_), @Lnew)));
     } while (! &eq($TEMPLATE, \@Lnew, \@LforClst));
-    
+
     undef(@ClstMarkov);
 
     my($FILE) = "> $LAMBDA";                          # 補間係数ファイルの生成
@@ -113,7 +114,7 @@ sub CalcClstLambda{
 #
 # 実  例 : ($ClstIntStr, $ClstMarkov, @LforClst) = &ClstRead2gramModel("Clst");
 #
-# 注意点 : 
+# 注意点 :
 
 sub ClstRead2gramModel{
     (@_ == 2) || die;

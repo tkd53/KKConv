@@ -1,3 +1,4 @@
+use bytes;
 #=====================================================================================
 #                       CrossEntropyByMorp.perl
 #                             bShinsuke Mori
@@ -51,7 +52,7 @@ sub UMlogP{
         $logP += log($CharUT[$part]) if ($char[1] == $CharIntStr[$part]->int($UT));
         shift(@char);
     }
-    
+
     return($logP);
 
 #    return($logP+log($UKprob[$part]));
@@ -108,7 +109,7 @@ sub MorpMarkov{
         while (<CORPUS>){                         # 文単位のループ
             ($.%$STEP == 0) || next;
             @stat = map($MorpIntStr->int($_), (($BT) x $MO, split, $BT));
-            grep(! $markov->inc(@stat[$_-$MO .. $_]), ($MO .. $#stat)); 
+            grep(! $markov->inc(@stat[$_-$MO .. $_]), ($MO .. $#stat));
         }
         close(CORPUS);
     }
@@ -152,7 +153,7 @@ sub CalcMorpLambda{
         while (<FILE>){
             ($.%$STEP == 0) || next;
             my(@stat) = map($MorpIntStr->int($_), (($BT) x $MO, split, $BT));
-            grep(! $Tran{pack($PT, @stat[$_-$MO .. $_])}++, ($MO .. $#stat)); 
+            grep(! $Tran{pack($PT, @stat[$_-$MO .. $_])}++, ($MO .. $#stat));
         }
         close(FILE);
 
@@ -176,7 +177,7 @@ sub CalcMorpLambda{
         @Lnew = map($Lnew[$_]/scalar(@Kcross), (0 .. $#LforMorp));
         printf(STDERR "λ = (%s)\n", join(" ", map(sprintf($TEMPLATE, $_), @Lnew)));
     } while (! &eq($TEMPLATE, \@Lnew, \@LforMorp));
-    
+
     undef(@MorpMarkov);
 
     my($FILE) = "> $LAMBDA";                          # 補間係数ファイルの生成
@@ -241,7 +242,7 @@ sub CharMarkov{
             foreach $morp (split){                # 形態素単位のループ
                 ($MorpIntStr->str($MorpIntStr->int($morp)) eq $Part[$part]) || next;
                 @stat = map($intstr->int($_), ($BT, &Morphs2Chars($morp), $BT));
-                grep(! $markov->inc(@stat[$_-1, $_]), (1 .. $#stat)); 
+                grep(! $markov->inc(@stat[$_-1, $_]), (1 .. $#stat));
             }
         }
         close(CORPUS);

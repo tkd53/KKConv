@@ -1,3 +1,4 @@
+use bytes;
 #=====================================================================================
 #                       CrossEntropyByTemplate.perl
 #                             bShinsuke Mori

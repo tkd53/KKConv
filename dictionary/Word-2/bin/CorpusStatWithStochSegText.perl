@@ -1,4 +1,5 @@
 #!/usr/bin/env perl
+use bytes;
 #=====================================================================================
 #                        CorpusStatWithStochSegText.perl
 #                             by Shinsuke Mori

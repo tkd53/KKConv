@@ -1,4 +1,5 @@
-#!/usr/bin/perl
+#!/usr/bin/env perl
+use bytes;
 #=====================================================================================
 #                        CorpusStat.perl
 #                             by Shinsuke MORI
@@ -72,7 +73,7 @@ foreach $CORPUS (map(sprintf($CTEMPL, $_), @Kcross)){
 #        @morp = (split);                          # pat
 #        @hist = (shift(@morp), shift(@morp));
 #        @hist = ("BT", "BT");
-#        @morp = @morp[0,1];                    
+#        @morp = @morp[0,1];
 #        @char = &Morphs2Chars(join(" ", @morp));  # pat
         @char = &Morphs2Chars($_);
         @morp = split;

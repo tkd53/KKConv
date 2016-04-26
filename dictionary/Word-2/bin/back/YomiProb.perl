@@ -1,4 +1,5 @@
 #!/usr/bin/env perl
+use bytes;
 #=====================================================================================
 #                        YomiProb.perl
 #                             by Shinsuke Mori
@@ -123,7 +124,7 @@ sub calc{
 
         push(@line, sprintf("%10.5f %s %s", &ent(@elem), $word, join(" ", @elem)));
     } while (&inc(\@suff, \@SUFF));
-    
+
     return(@line);
 }
 

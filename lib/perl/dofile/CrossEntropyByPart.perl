@@ -1,3 +1,4 @@
+use bytes;
 #=====================================================================================
 #                       CrossEntropyByPart.perl
 #                             bShinsuke Mori
@@ -39,7 +40,7 @@ sub PartMarkov{
         while (<CORPUS>){                         # 文単位のループ
             ($.%$STEP == 0) || next;
             @stat = map($PartIntStr->int($_), (($BT) x $MO, split, $BT));
-            grep(! $markov->inc(@stat[$_-$MO .. $_]), ($MO .. $#stat)); 
+            grep(! $markov->inc(@stat[$_-$MO .. $_]), ($MO .. $#stat));
         }
         close(CORPUS);
     }
@@ -83,7 +84,7 @@ sub CalcPartLambda{
         while (<FILE>){
             ($.%$STEP == 0) || next;
             my(@stat) = map($PartIntStr->int($_), (($BT) x $MO, split, $BT));
-            grep(! $Tran{pack($PT, @stat[$_-$MO .. $_])}++, ($MO .. $#stat)); 
+            grep(! $Tran{pack($PT, @stat[$_-$MO .. $_])}++, ($MO .. $#stat));
         }
         close(FILE);
 
@@ -107,7 +108,7 @@ sub CalcPartLambda{
         @Lnew = map($Lnew[$_]/scalar(@Kcross), (0 .. $#LforPart));
         printf(STDERR "λ = (%s)\n", join(" ", map(sprintf($TEMPLATE, $_), @Lnew)));
     } while (! &eq($TEMPLATE, \@Lnew, \@LforPart));
-    
+
     undef(@PartMarkov);
 
     my($FILE) = "> $LAMBDA";                          # 補間係数ファイルの生成

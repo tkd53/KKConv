@@ -1,4 +1,5 @@
 #!/usr/bin/env perl
+use bytes;
 #=====================================================================================
 #                       MakeInDictDA.perl
 #                             bShinsuke Mori

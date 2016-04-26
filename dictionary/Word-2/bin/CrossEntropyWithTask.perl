@@ -1,4 +1,5 @@
 #!/usr/bin/env perl
+use bytes;
 #=====================================================================================
 #                       CrossEntropyWithTask.perl
 #                             bShinsuke Mori
@@ -55,7 +56,7 @@ do "dofile/CrossEntropyByWord.perl";
 #-------------------------------------------------------------------------------------
 #                        ��ͭ���ѿ�������
 #-------------------------------------------------------------------------------------
- 
+
 $MO = 1;                                          # �ޥ륳�ե��ǥ��μ���
 
 @WordMarkovTest = (&Line2Units($WordMarkovTest))[0 .. $MO];
@@ -248,7 +249,7 @@ sub TaskWordMarkov{
         warn "Reading $CORPUS\n";
         while (<CORPUS>){                         # ʸñ�̤Υ롼��
             @stat = map($TaskWordIntStr->int($_), (($BT) x $MO, split, $BT));
-            grep(! $markov->inc(@stat[$_-$MO .. $_]), ($MO .. $#stat)); 
+            grep(! $markov->inc(@stat[$_-$MO .. $_]), ($MO .. $#stat));
         }
         close(CORPUS);
     }
@@ -261,11 +262,11 @@ sub TaskWordMarkov{
 
 # ��  ǽ : ���ַ����ο���
 #
-# ����ˡ : 
+# ����ˡ :
 #
-# ��  �� : 
+# ��  �� :
 #
-# ������ : referring to $TaskWordIntStr, $TaskCTEMPL, 
+# ������ : referring to $TaskWordIntStr, $TaskCTEMPL,
 
 sub CalcLambda{
     warn "CalcLambda\n";
@@ -305,8 +306,8 @@ sub CalcLambda{
         while (<FILE>){
             @word = (($BT) x $MO, split, $BT);
 #            @word = (($BT) x $MO, &Morphs2Words($_), $BT);
-            grep(! ${$Tran[$n]}{join(" ", @word[$_-$MO .. $_])}++, ($MO .. $#word)); 
-        } 
+            grep(! ${$Tran[$n]}{join(" ", @word[$_-$MO .. $_])}++, ($MO .. $#word));
+        }
         close(FILE);
 #        while (($key, $val) = each(%{$Tran[$n]})){
 #            printf("f(%s) = %d\n", $key, $val);
