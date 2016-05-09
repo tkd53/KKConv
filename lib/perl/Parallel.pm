@@ -1,3 +1,5 @@
+use bytes;
+
 #=====================================================================================
 #                        Parallel.pm
 #                             by Shinsuke MORI
@@ -48,7 +50,7 @@ sub parallel{
                 $suf1++;
             }
         }
-        print "\n"; 
+        print "\n";
         if ($suf2 < @$ARRAY2){
             print $$ARRAY2[$suf2];
             $pos = length($$ARRAY2[$suf2]);
@@ -59,7 +61,7 @@ sub parallel{
                 $suf2++;
             }
         }
-        print "\n"; 
+        print "\n";
         print $SEPARA;
     }
 }

@@ -1,3 +1,4 @@
+use bytes;
 package Juman;
 require 5.000;
 require Exporter;

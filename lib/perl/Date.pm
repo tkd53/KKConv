@@ -1,3 +1,4 @@
+use bytes;
 #=====================================================================================
 #                        Date.pm
 #                             by Shinsuke MORI
@@ -13,13 +14,13 @@ sub movedate{
     my($n, @date) = @_;
 
     if ($n < 0){                                  # $n 日遡る
-        while ($n++ < 0){                        
+        while ($n++ < 0){
             @date = &prevdate(@date);
         }
         return(@date);
     }
     if ($n > 0){                                  # $n 日進む
-        while ($n-- > 0){                        
+        while ($n-- > 0){
             @date = &nextdate(@date);
         }
         return(@date);
