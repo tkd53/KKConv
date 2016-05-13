@@ -48,11 +48,11 @@ class W_CHAR{
 
 // others
     inline S_CHAR hi() const {
-      return full >> 8;
+      return full & 0xff;
     }
 
     inline S_CHAR lo() const {
-      return full & 0xff;
+      return (full >> 8) & 0xff;
     }
 
 //                  void error(const S_CHAR_P, const S_CHAR_P) const;
